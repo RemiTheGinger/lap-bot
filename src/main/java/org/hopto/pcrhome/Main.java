@@ -2,36 +2,35 @@ package org.hopto.pcrhome;
 
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
-import net.dv8tion.jda.api.events.GenericEvent;
-import net.dv8tion.jda.api.events.ReadyEvent;
+import org.hopto.pcrhome.events.ReadyEvent;
 
 import javax.security.auth.login.LoginException;
-import java.util.EventListener;
 
-public class Main implements EventListener {
+public class Main {
 
     //MAIN FUNCTION
     public static void main(String[] args) {
 
-        /*
-        * Bot connection to Discord API
-        * @throws LoginException
-        */
-        try
-        {
-            //Main bot object
-            JDA jda = JDABuilder.createDefault(args[0])
-                    .addEventListeners(new Main())
-                    .build();
-        } catch (LoginException e){
-            System.out.println("Problem occurred while login in to Discord API");
-            e.printStackTrace();
-        }
-    }
+        String token = args[0];
 
-    public void onEvent(GenericEvent event){
-        if(event instanceof ReadyEvent){
-            System.out.println("API is ready to use");
+        //Check if token is given
+        if(token == null){
+            System.out.println("You have not given a token");
+        } else {
+            /*
+             * Bot connection to Discord API
+             * @throws LoginException
+             */
+            try
+            {
+                //Main bot object
+                JDA jda = JDABuilder.createDefault(args[0])
+                        .addEventListeners(new ReadyEvent())
+                        .build();
+            } catch (LoginException e){
+                System.out.println("Problem occurred while login in to Discord API");
+                e.printStackTrace();
+            }
         }
     }
 }
