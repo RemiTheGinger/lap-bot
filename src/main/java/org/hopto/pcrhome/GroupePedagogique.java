@@ -46,4 +46,9 @@ public class GroupePedagogique {
         category.createVoiceChannel(name).queue(channel -> gpVoice = channel);
     }
 
+    //Get the GP name
+    public String getName(){
+        return name;
+    }
+
 }
