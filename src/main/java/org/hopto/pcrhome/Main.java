@@ -10,20 +10,20 @@ public class Main {
 
     //MAIN FUNCTION
     public static void main(String[] args) {
-
-        String token = args[0];
-
+        
         //Check if token is given
-        if(token == null){
+        if(args.length < 1){
             System.out.println("You have not given a token");
         } else {
+            String token = args[0];
+
             /*
              * Bot connection to Discord API
              * @throws LoginException
              */
             try {
                 //Main API connection object
-                JDA jda = JDABuilder.createDefault(args[0])
+                JDA jda = JDABuilder.createDefault(token)
                         .build();
 
                 //API Ready event
