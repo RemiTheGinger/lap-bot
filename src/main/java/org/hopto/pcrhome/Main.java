@@ -21,12 +21,13 @@ public class Main {
              * Bot connection to Discord API
              * @throws LoginException
              */
-            try
-            {
-                //Main bot object
+            try {
+                //Main API connection object
                 JDA jda = JDABuilder.createDefault(args[0])
-                        .addEventListeners(new ReadyEvent())
                         .build();
+
+                //API Ready event
+                jda.addEventListener(new ReadyEvent());
             } catch (LoginException e){
                 System.out.println("Problem occurred while login in to Discord API");
                 e.printStackTrace();
