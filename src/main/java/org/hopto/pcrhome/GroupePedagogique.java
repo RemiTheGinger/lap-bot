@@ -1,8 +1,10 @@
 package org.hopto.pcrhome;
 
 import net.dv8tion.jda.api.entities.*;
+
 import org.jetbrains.annotations.NotNull;
 
+import java.awt.*;
 import java.util.ArrayList;
 
 public class GroupePedagogique {
@@ -32,16 +34,16 @@ public class GroupePedagogique {
     public GroupePedagogique(@NotNull String name, @NotNull Guild guild, @NotNull Category category){
         this.name = name;
 
-        //Creation of the Array list of thhe GPs member
+        //Creation of the Array list of the GPs member
         members = new ArrayList<Member>();
 
         //GP role creation in specific discord guild
-        gpRole = guild.createRole()
-                .setName(name)
-                .complete();
+        guild.createRole().setName(name).setMentionable(true).setColor(Color.MAGENTA)
+                .queue((role) -> gpRole = role);
 
-        gpText = category.createTextChannel(name).complete();
-        gpVoice = category.createVoiceChannel(name).complete();
+        //Creation of Voice and Text Channels
+        category.createTextChannel(name).queue(channel -> gpText = channel);
+        category.createVoiceChannel(name).queue(channel -> gpVoice = channel);
     }
 
 }
